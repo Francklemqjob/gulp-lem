@@ -1,7 +1,6 @@
-# gulp-lem
+# Копируем 
+git clone https://github.com/Francklemqjob/gulp-lem
 
-# git clone https://github.com/Francklemqjob/gulp-lem
 
-
-<b>Запуск json сервера</b> 
+# Запуск json сервера
 json-server --watch src/db.json
