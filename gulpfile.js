@@ -11,17 +11,6 @@ const zip = require('gulp-zip');
 
 const dist = "dist/";
 // const dist = "./../dist/";
-
-gulp.task('imagemin', function() {
-    // return gulp.src('src/assets/img/**/*.*')
-    return gulp.src('src/assets/**/*.*')
-        .pipe(imagemin({
-            progressive: true,
-            optimizationLevel: 5
-            }))
-        .pipe(gulp.dest('dist/assets/img/'))
-});
-
 gulp.task('styles', function() {
     return gulp.src("src/assets/scss/**/*.+(scss|sass)")
             .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -47,11 +36,6 @@ gulp.task('watch', function() {
     gulp.watch("src/*.html", gulp.parallel("copy-html"));
     gulp.watch("src/assets/**/*.*", gulp.parallel("copy-assets"));
     gulp.watch("src/js/**/*.js", gulp.parallel("build-js"));
-    gulp.watch("dist/*.html").on("change", browserSync.reload);
-    gulp.watch("src/js/*.js").on("change", browserSync.reload);
-    
-
-
 });
 
 gulp.task("copy-html", () => {
@@ -133,10 +117,20 @@ gulp.task("zip", () => {
         .pipe(zip('archive-all.zip'))
         .pipe(gulp.dest('./'));
 });
+gulp.task('imagemin', function() {
+  return gulp.src('src/assets/**/*.*', {ignore: "./src/assets/scss/**/*.*"})
+      .pipe(imagemin({
+          progressive: true,
+          optimizationLevel: 5
+          }))
+      .pipe(gulp.dest('dist/assets/'));
+});
 
 
 
-gulp.task('final', gulp.parallel("imagemin", "build-prod-js", "zip-dist", "zip"));
+gulp.task('final', gulp.parallel("imagemin", "build-prod-js"));
+
+gulp.task('zip', gulp.parallel("zip-dist", "zip"));
 
 gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js"));
 
