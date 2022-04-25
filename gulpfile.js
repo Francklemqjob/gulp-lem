@@ -12,7 +12,7 @@ const zip = require('gulp-zip');
 const dist = "dist/";
 // const dist = "./../dist/";
 gulp.task('styles', function() {
-    return gulp.src("src/assets/scss/**/*.+(scss|sass)")
+    return gulp.src("src/assets/scss/**/*.+(scss|sass)", {ignore: "./src/assets/scss/**/*.*"})
             .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
             .pipe(rename({
                 prefix: "",

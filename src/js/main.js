@@ -1,4 +1,4 @@
-import modal from './modules/modal';
+import tabs from './modules/tabs';
 
 import services from './services/services';
 
